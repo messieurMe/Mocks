@@ -6,8 +6,12 @@ fun main(args: Array<String>) {
         initalSubreddit = "puppies"
     )
 
-    val data = module.redditRepository.nextPage(limit = 10)
-    module.redditRepository.subreddit
+    var data = module.redditRepository.nextPage(limit = 10)
+    data?.forEach {
+        println("Title: \"${it.title}\"\n\tScore:${it.score}")
+    }
+    println("\n===\nNext data\n===\n")
+    data = module.redditRepository.nextPage(10)
     data?.forEach {
         println("Title: \"${it.title}\"\n\tScore:${it.score}")
     }

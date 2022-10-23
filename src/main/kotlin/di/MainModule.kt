@@ -9,14 +9,13 @@ interface MainModule {
     val statistics: Statistics
 }
 
-fun MainModule(baseUrl: String, initalSubreddit: String) = object : MainModule {
+fun MainModule(baseUrl: String, initalSubreddit: String): MainModule {
+    val dependencies = MainDependencies(baseUrl, initalSubreddit)
 
-    val dependencies: MainDependencies
-        get() = MainDependencies(baseUrl, initalSubreddit)
+    return object : MainModule {
 
-    override val redditRepository: RedditRepository
-        get() = dependencies.redditRepository
+        override val redditRepository: RedditRepository = dependencies.redditRepository
 
-    override val statistics: Statistics
-        get() = dependencies.statistics
+        override val statistics: Statistics = dependencies.statistics
+    }
 }
